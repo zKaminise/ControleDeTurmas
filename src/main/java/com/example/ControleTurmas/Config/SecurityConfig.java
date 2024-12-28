@@ -20,14 +20,17 @@ public class SecurityConfig {
             "/swagger-resource/**",
             "/actuator/**",
             "/h2-console",
+            "/h2-console/**",
             "/h2-console/login/**",
             "/auth/register",
             "/auth/register/**",
             "/auth/login/**",
             "/alunos",
             "/alunos/**",
+            "/alunos/turma",
+            "/alunos/turma/**",
             "/turma",
-            "/turma/**",
+            "/turma/**"
     };
 
     @Bean

@@ -10,9 +10,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "tb_alunos")
-//@Data
-//@Getter
-//@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 
@@ -43,30 +41,6 @@ public class Alunos {
     @Enumerated(EnumType.STRING)
     private GrauParentesco grauParentesco;
 
-    public GrauParentesco getGrauParentesco() {
-        return grauParentesco;
-    }
-
-    public void setGrauParentesco(GrauParentesco grauParentesco) {
-        this.grauParentesco = grauParentesco;
-    }
-
-    public String getAdultosResponsaveis() {
-        return adultosResponsaveis;
-    }
-
-    public void setAdultosResponsaveis(String adultosResponsaveis) {
-        this.adultosResponsaveis = adultosResponsaveis;
-    }
-
-    public String getTransporteEscolar() {
-        return transporteEscolar;
-    }
-
-    public void setTransporteEscolar(String transporteEscolar) {
-        this.transporteEscolar = transporteEscolar;
-    }
-
     public @Pattern(regexp = "\\d{10,11}", message = "O telefone deve conter apenas números.") String getTelefone() {
         return telefone;
     }
@@ -75,13 +49,6 @@ public class Alunos {
         this.telefone = telefone;
     }
 
-    public TurmasEnum getTurmasEnum() {
-        return turmasEnum;
-    }
-
-    public void setTurmasEnum(TurmasEnum turmasEnum) {
-        this.turmasEnum = turmasEnum;
-    }
 
     public @Length(min = 3, message = "Nome não pode estar vazio") String getNome() {
         return nome;
@@ -91,11 +58,4 @@ public class Alunos {
         this.nome = nome;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }

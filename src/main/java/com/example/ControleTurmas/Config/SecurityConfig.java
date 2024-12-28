@@ -21,6 +21,7 @@ public class SecurityConfig {
             "/actuator/**",
             "/h2-console",
             "/h2-console/**",
+            "/h2-console/login.do",
             "/h2-console/login/**",
             "/auth/register",
             "/auth/register/**",

@@ -1,5 +1,6 @@
 package com.example.ControleTurmas.Controllers;
 
+import com.example.ControleTurmas.Entity.AdultoResponsavel;
 import com.example.ControleTurmas.Entity.Alunos;
 import com.example.ControleTurmas.Enums.TurmasEnum;
 import com.example.ControleTurmas.Repositorys.AlunoRepository;
@@ -19,6 +20,13 @@ public class AlunoController {
 
     @PostMapping
     public ResponseEntity<Alunos> criarAluno(@RequestBody Alunos alunos) {
+        // Associar cada adulto responsável ao aluno
+        if (alunos.getAdultosResponsaveis() != null) {
+            for (AdultoResponsavel responsavel : alunos.getAdultosResponsaveis()) {
+                responsavel.setAluno(alunos);
+            }
+        }
+        // Salvar o aluno junto com os adultos responsáveis
         Alunos novoAluno = alunoRepository.save(alunos);
         return ResponseEntity.ok(novoAluno);
     }

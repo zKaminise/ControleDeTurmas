@@ -1,5 +1,7 @@
 package com.example.ControleTurmas.Enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 @Getter
@@ -18,6 +20,21 @@ public enum GrauParentesco {
 
     GrauParentesco(String grauParentesco) {
         this.grauParentesco = grauParentesco;
+    }
+
+    @JsonValue
+    public String getDescricao() {
+        return grauParentesco;
+    }
+
+    @JsonCreator
+    public static GrauParentesco fromDescricao(String descricao) {
+        for (GrauParentesco grau : GrauParentesco.values()) {
+            if (grau.grauParentesco.equalsIgnoreCase(descricao)) {
+                return grau;
+            }
+        }
+        throw new IllegalArgumentException("Valor inválido para GrauParentesco: " + descricao);
     }
 
     @Override

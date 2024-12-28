@@ -6,6 +6,7 @@ import com.example.ControleTurmas.Enums.TurmasEnum;
 import com.example.ControleTurmas.Repositorys.AlunoRepository;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,4 +53,49 @@ public class AlunoController {
         List<Alunos> alunos = alunoRepository.findAlunosByTurma(turma);
         return ResponseEntity.ok(alunos);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Alunos> getAluno(@PathVariable Long id) {
+        return alunoRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Alunos> atualizarAluno(@PathVariable Long id, @RequestBody Alunos alunosAtualizados) {
+        return alunoRepository.findById(id)
+                .map(aluno -> {
+                    // Atualizar informações básicas do aluno
+                    aluno.setNome(alunosAtualizados.getNome());
+                    aluno.setTelefone(alunosAtualizados.getTelefone());
+                    aluno.setTransporteEscolar(alunosAtualizados.getTransporteEscolar());
+                    aluno.setTurmasEnum(alunosAtualizados.getTurmasEnum());
+
+                    // Atualizar adultos responsáveis
+                    aluno.getAdultosResponsaveis().clear(); // Limpar os adultos atuais
+                    if (alunosAtualizados.getAdultosResponsaveis() != null) {
+                        for (AdultoResponsavel responsavel : alunosAtualizados.getAdultosResponsaveis()) {
+                            responsavel.setAluno(aluno); // Reassociar ao aluno
+                            aluno.getAdultosResponsaveis().add(responsavel); // Adicionar à lista
+                        }
+                    }
+
+                    // Salvar o aluno atualizado
+                    Alunos atualizado = alunoRepository.save(aluno);
+                    return ResponseEntity.ok(atualizado);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> excluirAluno(@PathVariable Long id) {
+        if (!alunoRepository.existsById(id)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não encontrado.");
+        }
+        alunoRepository.deleteById(id);
+        return ResponseEntity.ok("Aluno excluído com sucesso!");
+    }
+
 }

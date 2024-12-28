@@ -1,6 +1,10 @@
 package com.example.ControleTurmas.Enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
+
+import java.text.Normalizer;
 
 @Getter
 
@@ -34,14 +38,48 @@ public enum TurmasEnum {
     Turma_9B("Turma 9B"),
     Turma_9C("Turma 9C");
 
-    private final String nome;
+    private final String descricao;
 
-    TurmasEnum(String nome) {
-        this.nome = nome;
+    TurmasEnum(String descricao) {
+        this.descricao = descricao;
     }
 
-    @Override
-    public String toString() {
-        return nome;
+    @JsonValue
+    public String getDescricao() {
+        return descricao;
     }
+
+    @JsonCreator
+    public static TurmasEnum fromDescricao(String descricao) {
+        if (descricao == null || descricao.isEmpty()) {
+            throw new IllegalArgumentException("Descrição não pode ser nula ou vazia");
+        }
+
+        // Normalizar a entrada
+        String normalizedDescricao = Normalizer
+                .normalize(descricao, Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]", "") // Remove acentos
+                .toLowerCase(); // Torna case-insensitive
+
+        // Comparar com o nome do enum e com a descrição
+        for (TurmasEnum turma : TurmasEnum.values()) {
+            // Comparar com o nome do enum (e.g., "TURMA_1A")
+            if (turma.name().equalsIgnoreCase(descricao)) {
+                return turma;
+            }
+
+            // Comparar com a descrição (e.g., "Turma 1A")
+            String normalizedTurma = Normalizer
+                    .normalize(turma.descricao, Normalizer.Form.NFD)
+                    .replaceAll("[^\\p{ASCII}]", "")
+                    .toLowerCase();
+
+            if (normalizedTurma.equals(normalizedDescricao)) {
+                return turma;
+            }
+        }
+
+        throw new IllegalArgumentException("Valor inválido para Turmas: " + descricao);
+    }
+
 }

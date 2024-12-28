@@ -5,14 +5,14 @@ import com.example.ControleTurmas.Enums.TurmasEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "tb_alunos")
-@Data
+//@Data
+//@Getter
+//@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 
@@ -42,4 +42,60 @@ public class Alunos {
 
     @Enumerated(EnumType.STRING)
     private GrauParentesco grauParentesco;
+
+    public GrauParentesco getGrauParentesco() {
+        return grauParentesco;
+    }
+
+    public void setGrauParentesco(GrauParentesco grauParentesco) {
+        this.grauParentesco = grauParentesco;
+    }
+
+    public String getAdultosResponsaveis() {
+        return adultosResponsaveis;
+    }
+
+    public void setAdultosResponsaveis(String adultosResponsaveis) {
+        this.adultosResponsaveis = adultosResponsaveis;
+    }
+
+    public String getTransporteEscolar() {
+        return transporteEscolar;
+    }
+
+    public void setTransporteEscolar(String transporteEscolar) {
+        this.transporteEscolar = transporteEscolar;
+    }
+
+    public @Pattern(regexp = "\\d{10,11}", message = "O telefone deve conter apenas números.") String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(@Pattern(regexp = "\\d{10,11}", message = "O telefone deve conter apenas números.") String telefone) {
+        this.telefone = telefone;
+    }
+
+    public TurmasEnum getTurmasEnum() {
+        return turmasEnum;
+    }
+
+    public void setTurmasEnum(TurmasEnum turmasEnum) {
+        this.turmasEnum = turmasEnum;
+    }
+
+    public @Length(min = 3, message = "Nome não pode estar vazio") String getNome() {
+        return nome;
+    }
+
+    public void setNome(@Length(min = 3, message = "Nome não pode estar vazio") String nome) {
+        this.nome = nome;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

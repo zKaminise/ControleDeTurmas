@@ -16,6 +16,7 @@ public enum GrauParentesco {
     Irma("Irmã"),
     Tios("Tio/Tia"),
     Primos("Primo/Prima"),
+    TransporteEscolar("Transporte Escolar"),
     Outro("Outro");
 
     private final String descricao;

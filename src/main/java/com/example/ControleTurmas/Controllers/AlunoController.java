@@ -4,13 +4,14 @@ import com.example.ControleTurmas.Entity.AdultoResponsavel;
 import com.example.ControleTurmas.Entity.Alunos;
 import com.example.ControleTurmas.Enums.TurmasEnum;
 import com.example.ControleTurmas.Repositorys.AlunoRepository;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.util.HtmlUtils;
 
+import java.text.Normalizer;
 import java.util.List;
 
 @RestController
@@ -44,6 +45,21 @@ public class AlunoController {
     public ResponseEntity<List<Alunos>> listarAlunos() {
         List<Alunos> alunos = alunoRepository.findAll().stream().sorted((a1, a2) -> a1.getNome().compareToIgnoreCase(a2.getNome())).toList();
         return ResponseEntity.ok(alunos);
+    }
+
+    private String normalize(String input) {
+        return Normalizer.normalize(input, Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "")
+                .toLowerCase();
+    }
+
+    @GetMapping("/check-nome")
+    public ResponseEntity<Boolean> verificarNome(@RequestParam String nome) {
+        String nomeNormalizado = normalize(nome);
+        List<Alunos> alunos = alunoRepository.findAll();
+        boolean exists = alunos.stream()
+                .anyMatch(aluno -> normalize(aluno.getNome()).equals(nomeNormalizado));
+        return ResponseEntity.ok(exists);
     }
 
     // Endpoint para listar alunos de uma turma específica

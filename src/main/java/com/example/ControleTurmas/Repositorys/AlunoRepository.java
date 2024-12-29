@@ -12,4 +12,10 @@ public interface AlunoRepository extends JpaRepository<Alunos, Long> {
 
     @Query("SELECT a FROM Alunos a WHERE a.turmasEnum = :turma ORDER BY a.nome ASC")
     List<Alunos> findAlunosByTurma(@Param("turma")TurmasEnum turma);
+
+//    @Query("SELECT COUNT(a) > 0 FROM Alunos a WHERE LOWER(UNACCENT(a.nome)) = LOWER(UNACCENT(:nome))")
+//    boolean existsByNomeIgnoreCaseUnaccent(@Param("nome") String nome);
+
+    @Query("SELECT COUNT(a) > 0 FROM Alunos a WHERE LOWER(a.nome) = LOWER(:nome)")
+    boolean existsByNomeIgnoreCase(@Param("nome") String nome);
 }

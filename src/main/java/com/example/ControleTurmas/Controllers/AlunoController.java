@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -21,6 +22,12 @@ public class AlunoController {
 
     @PostMapping
     public ResponseEntity<Alunos> criarAluno(@RequestBody Alunos alunos) {
+        System.out.println("JSON recebido: " + alunos);
+        System.out.println("Turma recebida: " + alunos.getTurmasEnum());
+
+        if (alunos.getTurmasEnum() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Campo 'turma' é obrigatório.");
+        }
         // Associar cada adulto responsável ao aluno
         if (alunos.getAdultosResponsaveis() != null) {
             for (AdultoResponsavel responsavel : alunos.getAdultosResponsaveis()) {
@@ -28,6 +35,7 @@ public class AlunoController {
             }
         }
         // Salvar o aluno junto com os adultos responsáveis
+
         Alunos novoAluno = alunoRepository.save(alunos);
         return ResponseEntity.ok(novoAluno);
     }

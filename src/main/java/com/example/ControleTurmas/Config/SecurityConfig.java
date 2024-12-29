@@ -23,6 +23,7 @@ public class SecurityConfig {
             "/h2-console/**",
             "/h2-console/login.do",
             "/h2-console/login/**",
+            "/auth/**",
             "/auth/register",
             "/auth/register/**",
             "/auth/login/**",
@@ -39,6 +40,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PERMIT_ALL_LIST).permitAll()
+                        .requestMatchers("/alunos/**", "/alunos").permitAll()
                         .anyRequest().authenticated()
                 );
         return http.build();

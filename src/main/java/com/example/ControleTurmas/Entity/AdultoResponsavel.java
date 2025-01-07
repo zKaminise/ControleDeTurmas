@@ -3,13 +3,12 @@ package com.example.ControleTurmas.Entity;
 import com.example.ControleTurmas.Enums.GrauParentesco;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "tb_adultos_responsaveis")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdultoResponsavel {
@@ -60,5 +59,14 @@ public class AdultoResponsavel {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "AdultoResponsavel{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", grauParentesco=" + grauParentesco +
+                '}';
     }
 }

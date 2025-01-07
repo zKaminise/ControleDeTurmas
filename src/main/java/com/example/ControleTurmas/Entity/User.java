@@ -8,9 +8,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_user")
-//@Data
-//@Getter
-//@Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 

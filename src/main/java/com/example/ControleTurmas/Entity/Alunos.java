@@ -14,7 +14,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "tb_alunos")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Alunos {
@@ -88,5 +89,16 @@ public class Alunos {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Alunos{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", turmasEnum=" + turmasEnum +
+                ", telefone='" + telefone + '\'' +
+                ", transporteEscolar='" + transporteEscolar + '\'' +
+                '}';
     }
 }

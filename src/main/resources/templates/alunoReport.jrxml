@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="alunos_por_turma" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ad9b17c5-4f3a-4b81-9d57-f6c7b92e3a15">
+
+    <!-- Parâmetro de entrada -->
+    <parameter name="turma" class="java.lang.String"/>
+
+    <!-- Campos do relatório -->
+    <field name="nome" class="java.lang.String"/>
+    <field name="turma" class="java.lang.String"/>
+    <field name="telefone" class="java.lang.String"/>
+    <field name="transporteEscolar" class="java.lang.String"/>
+    <field name="responsaveis" class="java.lang.String"/>
+
+    <!-- Título do relatório -->
+    <title>
+        <band height="50">
+            <textField>
+                <reportElement x="0" y="0" width="555" height="50" uuid="4bf52a78-92d5-4eb1-b5f6-d43e4c69a5b2"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="18" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Relatório de Alunos - Turma: " + $P{turma}]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+
+    <!-- Cabeçalho da tabela -->
+    <columnHeader>
+        <band height="25">
+            <!-- Linha horizontal no cabeçalho -->
+            <line>
+                <reportElement x="0" y="24" width="555" height="1" uuid="f47ac10b-58cc-4372-a567-0e02b2c3d479"/>
+            </line>
+
+            <!-- Coluna: Nome -->
+            <staticText>
+                <reportElement x="0" y="0" width="100" height="24" uuid="d9b8c6c1-a77b-4851-9dbf-2e930c13fd56"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Nome]]></text>
+            </staticText>
+
+            <!-- Linha vertical após Nome -->
+            <line>
+                <reportElement x="100" y="0" width="1" height="25" uuid="4996be4b-850f-4e4f-8b4a-49b0e96e8ec6"/>
+            </line>
+
+            <!-- Coluna: Turma -->
+            <staticText>
+                <reportElement x="100" y="0" width="100" height="24" uuid="bbddfd3c-64b2-4a8b-b2c6-7482b11a98d7"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Turma]]></text>
+            </staticText>
+
+            <!-- Linha vertical após Turma -->
+            <line>
+                <reportElement x="200" y="0" width="1" height="25" uuid="dee0eab8-3834-4984-ac1a-a7a1fa25aeed"/>
+            </line>
+
+            <!-- Coluna: Telefone -->
+            <staticText>
+                <reportElement x="200" y="0" width="100" height="24" uuid="c3f2a3e1-3b7d-42b8-9e39-a46c9d1f26a4"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Telefone]]></text>
+            </staticText>
+
+            <!-- Linha vertical após Telefone -->
+            <line>
+                <reportElement x="300" y="0" width="1" height="25" uuid="2aea750f-80e8-4d2f-a9e2-18d4cc5578bb"/>
+            </line>
+
+            <!-- Coluna: Transporte Escolar -->
+            <staticText>
+                <reportElement x="300" y="0" width="130" height="24" uuid="a1f02dc4-451b-4974-883c-ff5c687db13e"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Transporte Escolar]]></text>
+            </staticText>
+
+            <!-- Linha vertical após Transporte Escolar -->
+            <line>
+                <reportElement x="430" y="0" width="1" height="25" uuid="cd7c3269-aba4-4b65-abcf-775dc042e9a8"/>
+            </line>
+
+            <!-- Coluna: Responsáveis -->
+            <staticText>
+                <reportElement x="430" y="0" width="125" height="24" uuid="85a5290b-5d49-4a1d-a2b7-4cfad3f2c693"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Responsáveis]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <!-- Detalhes (dados dos alunos) -->
+    <detail>
+        <band height="25">
+            <!-- Linha horizontal separando registros -->
+            <line>
+                <reportElement x="0" y="24" width="555" height="1" uuid="764f3f76-f581-405d-9d57-8f51b39d03b6"/>
+            </line>
+
+            <!-- Coluna: Nome -->
+            <textField>
+                <reportElement x="0" y="0" width="100" height="25" uuid="e6c172f5-2c68-49d5-bf6f-25f57be874d9"/>
+                <textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+            </textField>
+
+            <!-- Linha vertical após Nome -->
+            <line>
+                <reportElement x="100" y="0" width="1" height="25" uuid="d7670ed6-b4eb-4ed2-b9b7-30635496c02d"/>
+            </line>
+
+            <!-- Coluna: Turma -->
+            <textField>
+                <reportElement x="100" y="0" width="100" height="25" uuid="57f18413-5d74-47b9-bd1e-7c3c57d5b539"/>
+                <textFieldExpression><![CDATA[$F{turma}]]></textFieldExpression>
+            </textField>
+            <!-- Linha vertical após Turma -->
+            <line>
+                <reportElement x="200" y="0" width="1" height="25" uuid="2e6fbd3a-2be7-45b6-99f8-62ccc9a9045e"/>
+            </line>
+            <!-- Coluna: Telefone -->
+            <textField>
+                <reportElement x="200" y="0" width="100" height="25" uuid="b9f2e5cc-2d83-46c8-a58f-f019d04c229a"/>
+                <textFieldExpression><![CDATA[$F{telefone}]]></textFieldExpression>
+            </textField>
+            <!-- Linha vertical após Telefone -->
+            <line>
+                <reportElement x="300" y="0" width="1" height="25" uuid="e0f7f001-7c68-4891-86d2-92a3a01cc734"/>
+            </line>
+            <!-- Coluna: Transporte Escolar -->
+            <textField>
+                <reportElement x="300" y="0" width="130" height="25" uuid="8b9e1c15-c31a-4d74-b4c6-5b1d63e45813"/>
+                <textFieldExpression><![CDATA[$F{transporteEscolar}]]></textFieldExpression>
+            </textField>
+            <!-- Linha vertical após Transporte Escolar -->
+            <line>
+                <reportElement x="430" y="0" width="1" height="25" uuid="764f3f76-f581-405d-9d57-8f51b39d03b6"/>
+            </line>
+            <!-- Coluna: Responsáveis -->
+            <textField>
+            <reportElement x="430" y="0" width="125" height="25" uuid="fa2f9dc3-7a52-4932-a12f-75e3bcd19a4f"/>
+            <textFieldExpression><![CDATA[$F{responsaveis}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+    <!-- Rodapé do relatório -->
+    <pageFooter>
+        <band height="20">
+            <textField>
+                <reportElement x="0" y="0" width="555" height="20" uuid="719e5c83-427d-4d23-b86e-f28a6c95a351"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+</jasperReport>

@@ -32,7 +32,9 @@ public class SecurityConfig {
             "/alunos/turma",
             "/alunos/turma/**",
             "/turma",
-            "/turma/**"
+            "/turma/**",
+            "/alunos/relatorio",
+            "/alunos/relatorio/**"
     };
 
     @Bean

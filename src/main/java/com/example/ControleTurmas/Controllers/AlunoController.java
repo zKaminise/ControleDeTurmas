@@ -4,6 +4,8 @@ import com.example.ControleTurmas.Entity.AdultoResponsavel;
 import com.example.ControleTurmas.Entity.Alunos;
 import com.example.ControleTurmas.Enums.TurmasEnum;
 import com.example.ControleTurmas.Repositorys.AlunoRepository;
+import com.example.ControleTurmas.Services.PdfGenerator;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +14,11 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.HtmlUtils;
 
 import java.text.Normalizer;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/alunos")
@@ -20,6 +26,9 @@ public class AlunoController {
 
     @Autowired
     private AlunoRepository alunoRepository;
+
+    @Autowired
+    private PdfGenerator pdfGenerator;
 
     @PostMapping
     public ResponseEntity<Alunos> criarAluno(@RequestBody Alunos alunos) {
@@ -121,5 +130,51 @@ public class AlunoController {
         alunoRepository.deleteById(id);
         return ResponseEntity.ok("Aluno excluído com sucesso!");
     }
+
+    @GetMapping("/relatorio/{turma}")
+    public void gerarRelatorio(@PathVariable String turma, HttpServletResponse response) throws Exception {
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=relatorio_alunos.pdf");
+
+        // Normalizar o valor da turma recebida (remover espaços e converter para maiúsculas)
+        String normalizedTurma = turma.replace(" ", "").toUpperCase();
+
+        // Encontrar o valor correspondente no enum
+        TurmasEnum turmaEnum = Arrays.stream(TurmasEnum.values())
+                .filter(e -> e.name().equalsIgnoreCase(normalizedTurma))
+                .findFirst()
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Turma inválida: " + turma));
+
+        // Buscar os alunos da turma
+        List<Alunos> alunos = alunoRepository.findAlunosByTurma(turmaEnum);
+
+        // Gerar o relatório PDF
+        List<Map<String, Object>> data = alunos.stream().map(aluno -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("nome", aluno.getNome());
+            map.put("turma", aluno.getTurmasEnum() != null ? aluno.getTurmasEnum().toString() : "Não Informada");
+            map.put("telefone", aluno.getTelefone());
+            map.put("transporteEscolar", aluno.getTransporteEscolar());
+
+            // Ajuste da conversão de responsáveis
+            String responsaveisFormatados = aluno.getAdultosResponsaveis() != null && !aluno.getAdultosResponsaveis().isEmpty()
+                    ? aluno.getAdultosResponsaveis().stream()
+                    .map(responsavel -> responsavel.getNome() + " (" + responsavel.getGrauParentesco().name() + ")")
+                    .collect(Collectors.joining(", "))
+                    : "Nenhum Responsável Cadastrado";
+
+            map.put("responsaveis", responsaveisFormatados);
+            return map;
+        }).toList();
+
+        Map<String, Object> parameters = Map.of("turma", turmaEnum.toString());
+
+        pdfGenerator.generateReport(data, response.getOutputStream(), parameters);
+    }
+
+
+
+
+
 
 }

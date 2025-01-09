@@ -1,0 +1,1 @@
+INSERT INTO tb_user (username, password, reset_password_token, token_expiration_time) VALUES ('admin', '$2a$10$82MYt7eKuS0uCF2uNAI7cuNNyhnrN4X1Ve5cgOHUSASVR84IEFzGS', NULL, NULL);

@@ -41,7 +41,18 @@ public class Alunos {
 
     @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonManagedReference
-    private List<AdultoResponsavel> adultosResponsaveis = new ArrayList<>(); // Inicializar a lista
+    private List<AdultoResponsavel> adultosResponsaveis = new ArrayList<>();
+
+    @Column(name = "aluno_pode_ir_sozinho")
+    private Boolean alunoPodeIrSozinho = false;
+
+    public Boolean getAlunoPodeIrSozinho() {
+        return alunoPodeIrSozinho;
+    }
+
+    public void setAlunoPodeIrSozinho(Boolean alunoPodeIrSozinho) {
+        this.alunoPodeIrSozinho = alunoPodeIrSozinho;
+    }
 
     public List<AdultoResponsavel> getAdultosResponsaveis() {
         return adultosResponsaveis;

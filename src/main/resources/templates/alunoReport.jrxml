@@ -10,6 +10,8 @@
     <field name="telefone" class="java.lang.String"/>
     <field name="transporteEscolar" class="java.lang.String"/>
     <field name="responsaveis" class="java.lang.String"/>
+    <field name="emboraSozinho" class="java.lang.String"/>
+
 
     <!-- Título do relatório -->
     <title>
@@ -34,7 +36,7 @@
 
             <!-- Coluna: Nome -->
             <staticText>
-                <reportElement x="0" y="0" width="100" height="24" uuid="d9b8c6c1-a77b-4851-9dbf-2e930c13fd56"/>
+                <reportElement x="0" y="0" width="80" height="24" uuid="d9b8c6c1-a77b-4851-9dbf-2e930c13fd56"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font isBold="true"/>
                 </textElement>
@@ -43,12 +45,12 @@
 
             <!-- Linha vertical após Nome -->
             <line>
-                <reportElement x="100" y="0" width="1" height="25" uuid="4996be4b-850f-4e4f-8b4a-49b0e96e8ec6"/>
+                <reportElement x="80" y="0" width="1" height="25" uuid="4996be4b-850f-4e4f-8b4a-49b0e96e8ec6"/>
             </line>
 
             <!-- Coluna: Turma -->
             <staticText>
-                <reportElement x="100" y="0" width="100" height="24" uuid="bbddfd3c-64b2-4a8b-b2c6-7482b11a98d7"/>
+                <reportElement x="81" y="0" width="60" height="24" uuid="bbddfd3c-64b2-4a8b-b2c6-7482b11a98d7"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font isBold="true"/>
                 </textElement>
@@ -57,12 +59,12 @@
 
             <!-- Linha vertical após Turma -->
             <line>
-                <reportElement x="200" y="0" width="1" height="25" uuid="dee0eab8-3834-4984-ac1a-a7a1fa25aeed"/>
+                <reportElement x="141" y="0" width="1" height="25" uuid="dee0eab8-3834-4984-ac1a-a7a1fa25aeed"/>
             </line>
 
             <!-- Coluna: Telefone -->
             <staticText>
-                <reportElement x="200" y="0" width="100" height="24" uuid="c3f2a3e1-3b7d-42b8-9e39-a46c9d1f26a4"/>
+                <reportElement x="142" y="0" width="80" height="24" uuid="c3f2a3e1-3b7d-42b8-9e39-a46c9d1f26a4"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font isBold="true"/>
                 </textElement>
@@ -71,30 +73,44 @@
 
             <!-- Linha vertical após Telefone -->
             <line>
-                <reportElement x="300" y="0" width="1" height="25" uuid="2aea750f-80e8-4d2f-a9e2-18d4cc5578bb"/>
+                <reportElement x="222" y="0" width="1" height="25" uuid="2aea750f-80e8-4d2f-a9e2-18d4cc5578bb"/>
             </line>
 
-            <!-- Coluna: Transporte Escolar -->
+            <!-- Coluna: Transp. Escolar -->
             <staticText>
-                <reportElement x="300" y="0" width="130" height="24" uuid="a1f02dc4-451b-4974-883c-ff5c687db13e"/>
+                <reportElement x="223" y="0" width="90" height="24" uuid="a1f02dc4-451b-4974-883c-ff5c687db13e"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font isBold="true"/>
                 </textElement>
-                <text><![CDATA[Transporte Escolar]]></text>
+                <text><![CDATA[Transp. Escolar]]></text>
             </staticText>
 
-            <!-- Linha vertical após Transporte Escolar -->
+            <!-- Linha vertical após Transp. Escolar -->
             <line>
-                <reportElement x="430" y="0" width="1" height="25" uuid="cd7c3269-aba4-4b65-abcf-775dc042e9a8"/>
+                <reportElement x="313" y="0" width="1" height="25" uuid="cd7c3269-aba4-4b65-abcf-775dc042e9a8"/>
             </line>
 
             <!-- Coluna: Responsáveis -->
             <staticText>
-                <reportElement x="430" y="0" width="125" height="24" uuid="85a5290b-5d49-4a1d-a2b7-4cfad3f2c693"/>
+                <reportElement x="314" y="0" width="110" height="24" uuid="85a5290b-5d49-4a1d-a2b7-4cfad3f2c693"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font isBold="true"/>
                 </textElement>
                 <text><![CDATA[Responsáveis]]></text>
+            </staticText>
+
+            <!-- Linha vertical após Responsáveis -->
+            <line>
+                <reportElement x="424" y="0" width="1" height="25" uuid="cd7c3269-aba4-4b65-abcf-775dc042e9a8"/>
+            </line>
+
+            <!-- Coluna: Embora Sozinho? -->
+            <staticText>
+                <reportElement x="425" y="0" width="90" height="24" uuid="5e7b5a39-2f68-437a-9e74-2bcd8d0d8c70"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Embora Sozinho?]]></text>
             </staticText>
         </band>
     </columnHeader>
@@ -109,49 +125,67 @@
 
             <!-- Coluna: Nome -->
             <textField>
-                <reportElement x="0" y="0" width="100" height="25" uuid="e6c172f5-2c68-49d5-bf6f-25f57be874d9"/>
+                <reportElement x="0" y="0" width="80" height="25" uuid="e6c172f5-2c68-49d5-bf6f-25f57be874d9"/>
                 <textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
             </textField>
 
             <!-- Linha vertical após Nome -->
             <line>
-                <reportElement x="100" y="0" width="1" height="25" uuid="d7670ed6-b4eb-4ed2-b9b7-30635496c02d"/>
+                <reportElement x="80" y="0" width="1" height="25" uuid="d7670ed6-b4eb-4ed2-b9b7-30635496c02d"/>
             </line>
 
             <!-- Coluna: Turma -->
             <textField>
-                <reportElement x="100" y="0" width="100" height="25" uuid="57f18413-5d74-47b9-bd1e-7c3c57d5b539"/>
+                <reportElement x="81" y="0" width="60" height="25" uuid="57f18413-5d74-47b9-bd1e-7c3c57d5b539"/>
                 <textFieldExpression><![CDATA[$F{turma}]]></textFieldExpression>
             </textField>
+
             <!-- Linha vertical após Turma -->
             <line>
-                <reportElement x="200" y="0" width="1" height="25" uuid="2e6fbd3a-2be7-45b6-99f8-62ccc9a9045e"/>
+                <reportElement x="141" y="0" width="1" height="25" uuid="2e6fbd3a-2be7-45b6-99f8-62ccc9a9045e"/>
             </line>
+
             <!-- Coluna: Telefone -->
             <textField>
-                <reportElement x="200" y="0" width="100" height="25" uuid="b9f2e5cc-2d83-46c8-a58f-f019d04c229a"/>
+                <reportElement x="142" y="0" width="80" height="25" uuid="b9f2e5cc-2d83-46c8-a58f-f019d04c229a"/>
                 <textFieldExpression><![CDATA[$F{telefone}]]></textFieldExpression>
             </textField>
+
             <!-- Linha vertical após Telefone -->
             <line>
-                <reportElement x="300" y="0" width="1" height="25" uuid="e0f7f001-7c68-4891-86d2-92a3a01cc734"/>
+                <reportElement x="222" y="0" width="1" height="25" uuid="e0f7f001-7c68-4891-86d2-92a3a01cc734"/>
             </line>
-            <!-- Coluna: Transporte Escolar -->
+
+            <!-- Coluna: Transp. Escolar -->
             <textField>
-                <reportElement x="300" y="0" width="130" height="25" uuid="8b9e1c15-c31a-4d74-b4c6-5b1d63e45813"/>
+                <reportElement x="223" y="0" width="90" height="25" uuid="8b9e1c15-c31a-4d74-b4c6-5b1d63e45813"/>
                 <textFieldExpression><![CDATA[$F{transporteEscolar}]]></textFieldExpression>
             </textField>
-            <!-- Linha vertical após Transporte Escolar -->
+
+            <!-- Linha vertical após Transp. Escolar -->
             <line>
-                <reportElement x="430" y="0" width="1" height="25" uuid="764f3f76-f581-405d-9d57-8f51b39d03b6"/>
+                <reportElement x="313" y="0" width="1" height="25" uuid="764f3f76-f581-405d-9d57-8f51b39d03b6"/>
             </line>
+
             <!-- Coluna: Responsáveis -->
             <textField>
-            <reportElement x="430" y="0" width="125" height="25" uuid="fa2f9dc3-7a52-4932-a12f-75e3bcd19a4f"/>
-            <textFieldExpression><![CDATA[$F{responsaveis}]]></textFieldExpression>
+                <reportElement x="314" y="0" width="110" height="25" uuid="fa2f9dc3-7a52-4932-a12f-75e3bcd19a4f"/>
+                <textFieldExpression><![CDATA[$F{responsaveis}]]></textFieldExpression>
+            </textField>
+
+            <!-- Linha vertical após Responsáveis -->
+            <line>
+                <reportElement x="424" y="0" width="1" height="25" uuid="cd7c3269-aba4-4b65-abcf-775dc042e9a8"/>
+            </line>
+
+            <!-- Coluna: Embora Sozinho? -->
+            <textField>
+                <reportElement x="425" y="0" width="70" height="25" uuid="fbb81c5d-0e1d-46d9-b620-66b67c8d1e65"/>
+                <textFieldExpression><![CDATA[$F{emboraSozinho}]]></textFieldExpression>
             </textField>
         </band>
     </detail>
+
 
     <!-- Rodapé do relatório -->
     <pageFooter>

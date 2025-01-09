@@ -32,19 +32,20 @@ public class AlunoController {
 
     @PostMapping
     public ResponseEntity<Alunos> criarAluno(@RequestBody Alunos alunos) {
-        System.out.println("JSON recebido: " + alunos);
-        System.out.println("Turma recebida: " + alunos.getTurmasEnum());
-
         if (alunos.getTurmasEnum() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Campo 'turma' é obrigatório.");
         }
-        // Associar cada adulto responsável ao aluno
+
         if (alunos.getAdultosResponsaveis() != null) {
             for (AdultoResponsavel responsavel : alunos.getAdultosResponsaveis()) {
                 responsavel.setAluno(alunos);
             }
         }
-        // Salvar o aluno junto com os adultos responsáveis
+
+        // Definir o valor padrão se não estiver presente
+        if (alunos.getAlunoPodeIrSozinho() == null) {
+            alunos.setAlunoPodeIrSozinho(false);
+        }
 
         Alunos novoAluno = alunoRepository.save(alunos);
         return ResponseEntity.ok(novoAluno);
@@ -98,27 +99,29 @@ public class AlunoController {
     public ResponseEntity<Alunos> atualizarAluno(@PathVariable Long id, @RequestBody Alunos alunosAtualizados) {
         return alunoRepository.findById(id)
                 .map(aluno -> {
-                    // Atualizar informações básicas do aluno
                     aluno.setNome(alunosAtualizados.getNome());
                     aluno.setTelefone(alunosAtualizados.getTelefone());
                     aluno.setTransporteEscolar(alunosAtualizados.getTransporteEscolar());
                     aluno.setTurmasEnum(alunosAtualizados.getTurmasEnum());
 
-                    // Atualizar adultos responsáveis
-                    aluno.getAdultosResponsaveis().clear(); // Limpar os adultos atuais
+                    // Atualizar o campo alunoPodeIrSozinho
+                    aluno.setAlunoPodeIrSozinho(alunosAtualizados.getAlunoPodeIrSozinho() != null ? alunosAtualizados.getAlunoPodeIrSozinho() : false);
+
+                    aluno.getAdultosResponsaveis().clear();
                     if (alunosAtualizados.getAdultosResponsaveis() != null) {
                         for (AdultoResponsavel responsavel : alunosAtualizados.getAdultosResponsaveis()) {
-                            responsavel.setAluno(aluno); // Reassociar ao aluno
-                            aluno.getAdultosResponsaveis().add(responsavel); // Adicionar à lista
+                            responsavel.setAluno(aluno);
+                            aluno.getAdultosResponsaveis().add(responsavel);
                         }
                     }
 
-                    // Salvar o aluno atualizado
                     Alunos atualizado = alunoRepository.save(aluno);
                     return ResponseEntity.ok(atualizado);
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
+
+
 
 
 
@@ -136,19 +139,14 @@ public class AlunoController {
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=relatorio_alunos.pdf");
 
-        // Normalizar o valor da turma recebida (remover espaços e converter para maiúsculas)
         String normalizedTurma = turma.replace(" ", "").toUpperCase();
-
-        // Encontrar o valor correspondente no enum
         TurmasEnum turmaEnum = Arrays.stream(TurmasEnum.values())
                 .filter(e -> e.name().equalsIgnoreCase(normalizedTurma))
                 .findFirst()
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Turma inválida: " + turma));
 
-        // Buscar os alunos da turma
         List<Alunos> alunos = alunoRepository.findAlunosByTurma(turmaEnum);
 
-        // Gerar o relatório PDF
         List<Map<String, Object>> data = alunos.stream().map(aluno -> {
             Map<String, Object> map = new HashMap<>();
             map.put("nome", aluno.getNome());
@@ -156,7 +154,8 @@ public class AlunoController {
             map.put("telefone", aluno.getTelefone());
             map.put("transporteEscolar", aluno.getTransporteEscolar());
 
-            // Ajuste da conversão de responsáveis
+            map.put("emboraSozinho", aluno.getAlunoPodeIrSozinho() ? "Sim" : "Não");
+
             String responsaveisFormatados = aluno.getAdultosResponsaveis() != null && !aluno.getAdultosResponsaveis().isEmpty()
                     ? aluno.getAdultosResponsaveis().stream()
                     .map(responsavel -> responsavel.getNome() + " (" + responsavel.getGrauParentesco().name() + ")")
@@ -168,13 +167,6 @@ public class AlunoController {
         }).toList();
 
         Map<String, Object> parameters = Map.of("turma", turmaEnum.toString());
-
         pdfGenerator.generateReport(data, response.getOutputStream(), parameters);
     }
-
-
-
-
-
-
 }

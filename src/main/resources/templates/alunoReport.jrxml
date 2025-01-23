@@ -21,7 +21,7 @@
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font size="18" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA["Relatório de Alunos - Turma: " + $P{turma}]]></textFieldExpression>
+                <textFieldExpression><![CDATA["Relatório de Controle de Saída - Turma: " + $P{turma}]]></textFieldExpression>
             </textField>
         </band>
     </title>

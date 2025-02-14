@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="alunos_por_turma" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ad9b17c5-4f3a-4b81-9d57-f6c7b92e3a15">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="alunos_por_turma" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20"
+              rightMargin="20" topMargin="20" bottomMargin="20" uuid="ad9b17c5-4f3a-4b81-9d57-f6c7b92e3a15">
 
     <!-- Parâmetro de entrada -->
     <parameter name="turma" class="java.lang.String"/>
@@ -21,7 +25,8 @@
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font size="18" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA["Relatório de Controle de Saída - Turma: " + $P{turma}]]></textFieldExpression>
+                <textFieldExpression>
+                    <![CDATA["Relatório de Controle de Saída - Turma: " + $P{turma}]]></textFieldExpression>
             </textField>
         </band>
     </title>
@@ -117,86 +122,83 @@
 
     <!-- Detalhes (dados dos alunos) -->
     <detail>
-        <band height="25">
+        <band height="25" splitType="Stretch">
             <!-- Linha horizontal separando registros -->
-            <line>
-                <reportElement x="0" y="24" width="555" height="1" uuid="764f3f76-f581-405d-9d57-8f51b39d03b6"/>
-            </line>
+            <frame>
+                <reportElement x="0" y="24" width="555" height="1"  stretchType="RelativeToTallestObject" uuid="764f3f76-f581-405d-9d57-8f51b39d03b6"/>
 
             <!-- Coluna: Nome -->
-            <textField>
-                <reportElement x="0" y="0" width="80" height="25" uuid="e6c172f5-2c68-49d5-bf6f-25f57be874d9"/>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="0" y="0" width="80" height="25" positionType="Float" stretchType="RelativeToTallestObject" uuid="e6c172f5-2c68-49d5-bf6f-25f57be874d9"/>
+                <box>
+                    <!-- Apenas a borda direita -->
+                    <rightPen lineWidth="1.0" lineStyle="Solid"/>
+                </box>
                 <textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
             </textField>
 
-            <!-- Linha vertical após Nome -->
-            <line>
-                <reportElement x="80" y="0" width="1" height="25" uuid="d7670ed6-b4eb-4ed2-b9b7-30635496c02d"/>
-            </line>
-
             <!-- Coluna: Turma -->
-            <textField>
-                <reportElement x="81" y="0" width="60" height="25" uuid="57f18413-5d74-47b9-bd1e-7c3c57d5b539"/>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="81" y="0" width="60" height="25" positionType="Float" stretchType="RelativeToTallestObject" uuid="57f18413-5d74-47b9-bd1e-7c3c57d5b539"/>
+                <box>
+                    <rightPen lineWidth="1.0" lineStyle="Solid"/>
+                </box>
                 <textFieldExpression><![CDATA[$F{turma}]]></textFieldExpression>
             </textField>
 
-            <!-- Linha vertical após Turma -->
-            <line>
-                <reportElement x="141" y="0" width="1" height="25" uuid="2e6fbd3a-2be7-45b6-99f8-62ccc9a9045e"/>
-            </line>
-
             <!-- Coluna: Telefone -->
-            <textField>
-                <reportElement x="142" y="0" width="80" height="25" uuid="b9f2e5cc-2d83-46c8-a58f-f019d04c229a"/>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="142" y="0" width="80" height="25" positionType="Float" stretchType="RelativeToTallestObject" uuid="b9f2e5cc-2d83-46c8-a58f-f019d04c229a"/>
+                <box>
+                    <rightPen lineWidth="1.0" lineStyle="Solid"/>
+                </box>
                 <textFieldExpression><![CDATA[$F{telefone}]]></textFieldExpression>
             </textField>
 
-            <!-- Linha vertical após Telefone -->
-            <line>
-                <reportElement x="222" y="0" width="1" height="25" uuid="e0f7f001-7c68-4891-86d2-92a3a01cc734"/>
-            </line>
-
             <!-- Coluna: Transp. Escolar -->
-            <textField>
-                <reportElement x="223" y="0" width="90" height="25" uuid="8b9e1c15-c31a-4d74-b4c6-5b1d63e45813"/>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="223" y="0" width="90" height="25" positionType="Float" stretchType="RelativeToTallestObject" uuid="8b9e1c15-c31a-4d74-b4c6-5b1d63e45813"/>
+                <box>
+                    <rightPen lineWidth="1.0" lineStyle="Solid"/>
+                </box>
                 <textFieldExpression><![CDATA[$F{transporteEscolar}]]></textFieldExpression>
             </textField>
 
-            <!-- Linha vertical após Transp. Escolar -->
-            <line>
-                <reportElement x="313" y="0" width="1" height="25" uuid="764f3f76-f581-405d-9d57-8f51b39d03b6"/>
-            </line>
-
             <!-- Coluna: Responsáveis -->
-            <textField>
-                <reportElement x="314" y="0" width="110" height="25" uuid="fa2f9dc3-7a52-4932-a12f-75e3bcd19a4f"/>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="314" y="0" width="110" height="25" positionType="Float" stretchType="RelativeToTallestObject" uuid="fa2f9dc3-7a52-4932-a12f-75e3bcd19a4f"/>
+                <box>
+                    <rightPen lineWidth="1.0" lineStyle="Solid"/>
+                </box>
                 <textFieldExpression><![CDATA[$F{responsaveis}]]></textFieldExpression>
             </textField>
 
-            <!-- Linha vertical após Responsáveis -->
-            <line>
-                <reportElement x="424" y="0" width="1" height="25" uuid="cd7c3269-aba4-4b65-abcf-775dc042e9a8"/>
-            </line>
-
             <!-- Coluna: Embora Sozinho? -->
-            <textField>
-                <reportElement x="425" y="0" width="70" height="25" uuid="fbb81c5d-0e1d-46d9-b620-66b67c8d1e65"/>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="425" y="0" width="70" height="25" positionType="Float" uuid="fbb81c5d-0e1d-46d9-b620-66b67c8d1e65"/>
                 <textFieldExpression><![CDATA[$F{emboraSozinho}]]></textFieldExpression>
             </textField>
-        </band>
-    </detail>
+            <!-- Linha Horizontal separando os registros -->
+            <line>
+                <!-- O valor de y (ex.: 30) representa a posição inicial, mas com positionType="Float"
+                     ela será empurrada para baixo se algum elemento acima esticar -->
+                <reportElement x="0" y="25" width="555" height="1" positionType="Float" uuid="7f8c3d9e-6f7a-4d9e-bbe2-14dff4c3a2f6"/>
+            </line>
+        </frame>
+    </band>
+</detail>
 
 
-    <!-- Rodapé do relatório -->
-    <pageFooter>
-        <band height="20">
-            <textField>
-                <reportElement x="0" y="0" width="555" height="20" uuid="719e5c83-427d-4d23-b86e-f28a6c95a351"/>
-                <textElement textAlignment="Right" verticalAlignment="Middle">
-                    <font size="10"/>
-                </textElement>
-                <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
-            </textField>
-        </band>
-    </pageFooter>
-</jasperReport>
+        <!-- Rodapé do relatório -->
+<pageFooter>
+<band height="20">
+    <textField>
+        <reportElement x="0" y="0" width="555" height="20" uuid="719e5c83-427d-4d23-b86e-f28a6c95a351"/>
+        <textElement textAlignment="Right" verticalAlignment="Middle">
+            <font size="10"/>
+        </textElement>
+        <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+    </textField>
+</band>
+</pageFooter>
+        </jasperReport>
